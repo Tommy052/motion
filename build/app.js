@@ -1,20 +1,75 @@
+import { InputDialog } from './components/dialog/dialog.js';
 import { NoteComponent } from './components/page/item/note.js';
 import { TodoComponent } from './components/page/item/todo.js';
 import { VideoComponent } from './components/page/item/video.js';
 import { ImageComponent } from './components/page/item/image.js';
-import { PageComponent } from './components/page/page.js';
+import { TextSectionInput } from './components/dialog/input/text-input.js';
+import { MediaSectionInput } from './components/dialog/input/media-input.js';
+import { PageComponent, PageItemComponent } from './components/page/page.js';
 class App {
-    constructor(appRoot) {
-        this.page = new PageComponent();
+    constructor(appRoot, dialogRoot) {
+        this.page = new PageComponent(PageItemComponent);
         this.page.attachTo(appRoot);
-        const video = new VideoComponent('video title', 'https://www.youtube.com/watch?v=SfyDnZ7b0IM');
-        this.page.addChild(video);
-        const image = new ImageComponent('Image Title', 'https://picsum.photos/600/300');
-        this.page.addChild(image);
-        const todo = new TodoComponent('todo Title', 'asdadsasdasd');
-        this.page.addChild(todo);
-        const note = new NoteComponent('note Title', 'body 1234123123123');
-        this.page.addChild(note);
+        const imageBtn = document.querySelector('#new-image');
+        imageBtn.addEventListener('click', () => {
+            const dialog = new InputDialog();
+            const inputSection = new MediaSectionInput();
+            dialog.addChild(inputSection);
+            dialog.attachTo(dialogRoot);
+            dialog.setOnCloseListenr(() => {
+                dialog.removeFrom(dialogRoot);
+            });
+            dialog.setOnSubmitListenr(() => {
+                const image = new ImageComponent(inputSection.title, inputSection.url);
+                this.page.addChild(image);
+                dialog.removeFrom(dialogRoot);
+            });
+        });
+        const videoBtn = document.querySelector('#new-video');
+        videoBtn.addEventListener('click', () => {
+            const dialog = new InputDialog();
+            const inputSection = new MediaSectionInput();
+            dialog.addChild(inputSection);
+            dialog.attachTo(dialogRoot);
+            dialog.setOnCloseListenr(() => {
+                dialog.removeFrom(dialogRoot);
+            });
+            dialog.setOnSubmitListenr(() => {
+                const image = new VideoComponent(inputSection.title, inputSection.url);
+                this.page.addChild(image);
+                dialog.removeFrom(dialogRoot);
+            });
+        });
+        const noteBtn = document.querySelector('#new-note');
+        noteBtn.addEventListener('click', () => {
+            const dialog = new InputDialog();
+            const inputSection = new TextSectionInput();
+            dialog.addChild(inputSection);
+            dialog.attachTo(dialogRoot);
+            dialog.setOnCloseListenr(() => {
+                dialog.removeFrom(dialogRoot);
+            });
+            dialog.setOnSubmitListenr(() => {
+                const image = new NoteComponent(inputSection.title, inputSection.body);
+                this.page.addChild(image);
+                dialog.removeFrom(dialogRoot);
+            });
+        });
+        const todoBtn = document.querySelector('#new-todo');
+        todoBtn.addEventListener('click', () => {
+            const dialog = new InputDialog();
+            const inputSection = new TextSectionInput();
+            dialog.addChild(inputSection);
+            dialog.attachTo(dialogRoot);
+            dialog.setOnCloseListenr(() => {
+                dialog.removeFrom(dialogRoot);
+            });
+            dialog.setOnSubmitListenr(() => {
+                const image = new TodoComponent(inputSection.title, inputSection.body);
+                this.page.addChild(image);
+                dialog.removeFrom(dialogRoot);
+            });
+        });
     }
 }
-new App(document.querySelector('.document'));
+new App(document.querySelector('.document'), document.body);
