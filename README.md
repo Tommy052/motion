@@ -10,3 +10,8 @@ notion 처럼
 카드세션 4가지
 카드세션 추가 및 삭제 
 드레그 & 드랍 및 삭제  
+
+최종 클래스 다이어그램
+https://import.cdn.thinkific.com/292401/courses/1125869/8_diagramad45105addinputcomponents-210225-145835.png
+
+https://import.cdn.thinkific.com/292401/courses/1125869/8_diagramad45105addinputcomponents-210225-145827.svg
