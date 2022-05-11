@@ -10,4 +10,7 @@ export class BaseComponent {
     removeFrom(parent) {
         parent.removeChild(this.element);
     }
+    attach(component, position = 'afterbegin') {
+        component.attachTo(this.element, position);
+    }
 }
